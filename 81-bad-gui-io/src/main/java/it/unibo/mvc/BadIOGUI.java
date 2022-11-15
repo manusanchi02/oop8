@@ -10,12 +10,12 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -45,6 +45,14 @@ public class BadIOGUI {
         canvas.add(write, BorderLayout.CENTER);
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        /*01.01*/
+        final JPanel p = new JPanel();
+        p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
+        canvas.add(p, BorderLayout.CENTER);
+        p.add(write);
+        /*01.02*/
+        final JButton read = new JButton("Read");
+        p.add(read);
         /*
          * Handlers
          */
@@ -65,6 +73,21 @@ public class BadIOGUI {
                     e1.printStackTrace(); // NOPMD: allowed as this is just an exercise
                 }
             }
+        });
+
+        /*01.02*//*01.03 */
+        read.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
+                    System.out.println(br.readLine());
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(frame, e, "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                
+            }
+            
         });
     }
 
@@ -90,6 +113,8 @@ public class BadIOGUI {
         /*
          * OK, ready to push the frame onscreen
          */
+        /*01.01*/
+        frame.pack();
         frame.setVisible(true);
     }
 
