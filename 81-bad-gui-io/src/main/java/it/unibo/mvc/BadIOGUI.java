@@ -79,11 +79,11 @@ public class BadIOGUI {
         read.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent arg0) {
+            public void actionPerformed(final ActionEvent e) {
                 try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
                     System.out.println(br.readLine());
-                } catch (IOException e) {
-                    JOptionPane.showMessageDialog(frame, e, "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IOException e2) {
+                    JOptionPane.showMessageDialog(frame, e2, "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 
             }
